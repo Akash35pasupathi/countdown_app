@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercountdownapp/dashboard_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +32,33 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/*class SplashScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        SizedBox.expand(
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: VideoPlayer(VideoPlayerController.asset(
+                  'http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4')
+                ..initialize().then((_) {
+                  _controller.play();
+                  _controller.setLooping(true);
+                  // Ensure the first frame is shown after the video is initialized
+
+                }),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}*/
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -50,19 +78,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -72,46 +87,106 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      body: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height / 7,
+                left: 30.0,
+                right: 30),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/image/lets_start_bg.png"),
+                fit: BoxFit.fill,
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            child: Column(
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        "assets/image/logo.png",
+                        height: MediaQuery.of(context).size.height / 5.5,
+                        fit: BoxFit.fill,
+                      ),
+                      Divider(
+                        height: 35,
+                      ),
+                      Text(
+                        'Welcome',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Willkommen bei e-Arenaa deinem mobilen e-Sport Turnierveranstalter',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: MediaQuery.of(context).size.height / 7,
+              child: Center(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25.0, right: 25),
+                        child: RaisedButton(
+                            color: Color(0xFFDC5D64),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyDashboard()),
+                              );
+                            },
+                            child: Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: new Text(
+                                  "Los geht’s",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(5.0),
+                              side: BorderSide(color: Color(0xFFDC5D64)),
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
